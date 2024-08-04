@@ -31,14 +31,21 @@ export default class TodoList extends Component {
     addTodo(event){
         event.preventDefault()
         this.setState((preState) =>({
-             todos: [...preState.todos, {id:this.state.todos.length+1, title:this.state.todoTitle, completed:'false'}],
+             todos: [...preState.todos, {id:this.state.todos.length+1, title:this.state.todoTitle, completed:false}],
              todoTitle : ''
         }))
-        
-       
-        
-        
-        
+           
+    }
+
+
+    editTodo(id){
+        console.log(id)
+        this.setState((preState) =>({
+            todos: preState.todos.map((todo)=>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+
+    }));
     }
 
     render() {
@@ -62,7 +69,7 @@ export default class TodoList extends Component {
                 <div className="todo-container">
                     <ul className="todo-list">
                         {this.state.todos.map((todo)=>(
-                            <Todo{...todo} key={todo.id}/>
+                            <Todo{...todo}  completedHandler={this.editTodo.bind(this , todo.id)} key={todo.id}/>
                         )                        
                         )}
                      
