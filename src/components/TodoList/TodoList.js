@@ -13,7 +13,6 @@ export default class TodoList extends Component {
         }
 
         this.addTodo = this.addTodo.bind(this)
-        // this.removeTodo = this.removeTodo.bind(this)
         // this.editTodo = this.editTodo.bind(this)
         this.todoTitleHandler = this.todoTitleHandler.bind(this)
         // this.statusHandler = this.statusHandler.bind(this)
@@ -48,6 +47,14 @@ export default class TodoList extends Component {
     }));
     }
 
+    removeTodo(id) {
+        this.setState((prevState) => ({
+            todos: prevState.todos.filter((todo) => todo.id !== id)
+        }));
+    }
+
+
+
     render() {
         return (
             <>
@@ -69,7 +76,7 @@ export default class TodoList extends Component {
                 <div className="todo-container">
                     <ul className="todo-list">
                         {this.state.todos.map((todo)=>(
-                            <Todo{...todo}  completedHandler={this.editTodo.bind(this , todo.id)} key={todo.id}/>
+                            <Todo{...todo}  completedHandler={this.editTodo.bind(this , todo.id)} removeHandler={this.removeTodo.bind(this , todo.id)} key={todo.id}/>
                         )                        
                         )}
                      
